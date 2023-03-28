@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Login from "./components/Login";
+import ToDo from "./components/ToDo";
+import Register from "./components/Register";
+import { useState } from "react";
 
 function App() {
+  const [users, setusers] = useState([]);
+
+  const handleRegisterRequest = (userName, passWord) => {
+    console.log(userName, passWord);
+    setusers((currentusers) => [
+      ...currentusers,
+      { name: userName, password: passWord },
+    ]);
+    console.log(users);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Navbar></Navbar>
+      <Routes>
+        <Route path="login" element={<Login users={users} />} />
+        <Route
+          path="register"
+          element={
+            <Register users={users} registerRequested={handleRegisterRequest} />
+          }
+        />
+        <Route path="/to-do" element={<ToDo />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
