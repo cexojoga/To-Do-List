@@ -19,7 +19,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar></Navbar>
       <Routes>
         <Route path="login" element={<Login users={users} />} />
         <Route
